@@ -4,6 +4,7 @@ import TelegramBot from 'node-telegram-bot-api';
 import ShiftGenarator from './src/Shifts/controller/Shift_g.js';
 
 // describe tl bot <t.me/erm_g_bot>
+
 const API_KEY_BOT = '6190654327:AAFHHZ7OIHMXXriv7I1D82ifHlJAFhyZs6Q'; //bot t.me/erm_g_bot
 const bot = new TelegramBot(process.env.API_KEY_BOT, {
     polling: {
