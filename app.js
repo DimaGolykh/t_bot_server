@@ -143,7 +143,7 @@ app.get("/", async function(request, response){
     response.send(res);
 });
 
-app.listen(port, host, () =>
+app.listen(port, () =>
 console.log(`Server listens http://${host}:${port}`)
 );
 
