@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from './src/routers.js';
+//import routes from './src/routers.js';
 import TelegramBot from 'node-telegram-bot-api';
 import ShiftGenarator from './src/Shifts/controller/Shift_g.js';
 
