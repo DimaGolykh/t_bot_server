@@ -126,9 +126,8 @@ bot.on("polling_error", err => console.log(err.data.error.message));
 
 //describe express
 const app = express();
-const host = '127.0.0.1';
+const host = '217.28.220.62';//'127.0.0.1';
 const port = 4000;
-
 
 
 app.use(express.json());
@@ -143,7 +142,7 @@ app.get("/", async function(request, response){
     response.send(res);
 });
 
-app.listen(port, () =>
+app.listen(port,host, () =>
 console.log(`Server listens http://${host}:${port}`)
 );
 
