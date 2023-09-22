@@ -61,7 +61,7 @@ export default class ShiftGenarator { // Generator - это класс для г
     /*{"date":"2023-02-02T21:00:00.000Z","login":"emp1","fio":"Ivanov II","workShift":"08-17","employee_id":1},
     */
     constructor(params) {
-      console.log(JSON.stringify(params={}));
+      //console.log(JSON.stringify(params));
       let dt = new Date();
       dt.setHours(12);
       console.log( ' dt = ' + dt + ' st month ' +  dt.getMonth());
@@ -70,12 +70,12 @@ export default class ShiftGenarator { // Generator - это класс для г
       const year = dt.getFullYear()
       const yearMonth = year.toString() + '-' + month.toString();
       const defaultSetting = { "typeOfGeneration": "random", "yearMonth" : yearMonth , "isWeekendsWork" : false };
-      const defEmpList = [{ "fio": "Ivanov II", "login" : "emp1", "constantShift" : "" },
+      const defEmpList = [];/* [{ "fio": "Ivanov II", "login" : "emp1", "constantShift" : "" },
       { "fio": "Ivanov IB", "login" : "emp2", "constantShift" : "" },
       { "fio": "Dava AA", "login" : "emp3", "constantShift" : "" },
-      { "fio": "Petrov PP", "login" : "emp4", "constantShift" : "" }]; 
+      { "fio": "Petrov PP", "login" : "emp4", "constantShift" : "" }]; */
 
-      this.employeerslist = defEmpList;
+      this.employeerslist = defEmpList.concat(params.employeerslist);
       //this.employeerslist = params.employeerslist;
       this.setting = { ...defaultSetting, ...params.setting };
       console.log(JSON.stringify(this.setting));

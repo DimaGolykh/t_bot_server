@@ -2,16 +2,11 @@ import express from 'express';
 //import routes from './src/routers.js';
 import TelegramBot from 'node-telegram-bot-api';
 import ShiftGenarator from './src/Shifts/controller/Shift_g.js';
-
+import ip from 'ip';
 // describe tl bot <t.me/erm_g_bot>
 
-const API_KEY_BOT = '6190654327:AAFHHZ7OIHMXXriv7I1D82ifHlJAFhyZs6Q'; //bot t.me/erm_g_bot
-const bot = new TelegramBot(process.env.API_KEY_BOT, {
-    polling: {
-        interval: 300,
-        autoStart: true
-      }
-});
+const API_KEY_BOT = '6190654327:AAEJpu1CycWM6mvnzlaFDYtIcZTRA14B6mI'; //bot t.me/erm_g_bot
+const bot = new TelegramBot(API_KEY_BOT, {polling: true});
 
 const commands = [
 
@@ -86,11 +81,23 @@ bot.on('text', async msg => {
 
         }
         else if(msg.text == '⭐️ Генератор смен') {
-            const params ={};
-            const sg = new ShiftGenarator();
+            let dt = new Date();
+            dt.setHours(12);
+            console.log( ' dt = ' + dt + ' st month ' +  dt.getMonth());
+            const month = dt.getMonth() + 1; 
+            console.log('month ' + month);
+            const year = dt.getFullYear()
+            const yearMonth = year.toString() + '-' + month.toString();
+            const empl = msg.from.username;
+            const fio = msg.from.first_name + ' ' + msg.from.last_name;
+            const params = {
+                "employeerslist" : [{ "fio": fio, "login" : empl, "constantShift" : "" }],
+                "setting" : { "yearMonth" : yearMonth , "typeOfGeneration" : "random" }};
+            const sg = new ShiftGenarator(params);
             const res = sg.generate();
-            console.log(res);
-            await bot.sendMessage(msg.chat.id, res);
+            const resStr = JSON.stringify(res);
+            console.log(res.toString());
+            await bot.sendMessage(msg.chat.id, resStr);
         
         }
         else if(msg.text == '❌ Закрыть меню') {
@@ -126,9 +133,9 @@ bot.on("polling_error", err => console.log(err.data.error.message));
 
 //describe express
 const app = express();
-const host = '217.28.220.62';//'127.0.0.1';
+//const host = '217.28.220.62';//'127.0.0.1';
 const port = 4000;
-
+const ipAddress = ip.address();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -142,9 +149,7 @@ app.get("/", async function(request, response){
     response.send(res);
 });
 
-app.listen(port,host, () =>
-console.log(`Server listens http://${host}:${port}`)
-);
-
-
-//exp rest call: http://127.0.0.1:4000/api/sheets/sheet?login=emp1
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`);
+    console.log(`Network access via: ${ipAddress}:${port}!`);
+  });
