@@ -28,6 +28,12 @@ const commands = [
         description: "Раздел помощи"
 
     },
+    {
+
+        command: "menu",
+        description: "Функциональное меню"
+
+    },
 
 ]
 
